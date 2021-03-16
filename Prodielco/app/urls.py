@@ -7,6 +7,6 @@ from app import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    re_path(r'^.*\.*', views.pages, name='pages'),
+    #re_path(r'^.*\.*', views.pages, name='pages'),
 
 ]

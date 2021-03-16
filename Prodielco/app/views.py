@@ -17,7 +17,7 @@ def index(request):
 
     html_template = loader.get_template( 'index.html' )
     return HttpResponse(html_template.render(context, request))
-
+"""
 @login_required(login_url="/login/")
 def pages(request):
     context = {}
@@ -40,3 +40,5 @@ def pages(request):
     
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
+
+"""

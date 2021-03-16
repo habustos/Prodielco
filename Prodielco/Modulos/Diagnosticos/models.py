@@ -52,9 +52,6 @@ class Cliente(models.Model):
     barrio = models.CharField(max_length=100)
     direccion = models.CharField(max_length=500)
 
-    def get_absolute_url(self):
-        return reverse('fair:index')
-
     def __str__(self):
         return self.nombre
 
@@ -64,9 +61,14 @@ class Responsable(models.Model):
     apellidos = models.CharField(max_length=50)
     telefono = models.CharField(max_length=100)
     cargo = models.CharField(max_length=100)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     departamento = models.ForeignKey(Depto, on_delete=models.CASCADE)
-    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE)
+    municipio = ChainedForeignKey(
+        Municipio,
+        chained_field="departamento",
+        chained_model_field="departamento",
+        show_all=False,
+        auto_choose=True
+    )
     barrio = models.CharField(max_length=100)
     direccion = models.CharField(max_length=500)
 
