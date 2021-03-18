@@ -10,6 +10,6 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     url(r'^chaining/', include('smart_selects.urls')),
     #url(r'^add/$', views.Cliente, name='modele_new'),
-    path('add/', views.add_buyer.as_view(template_name="pruebas/cliente.html"), name='person_add'),
-
+    path('C_add/', views.add_buyer.as_view(template_name="pruebas/cliente.html"), name='person_add'),
+path('T_add/', views.Transformador_form.as_view(template_name="pruebas/transformador.html"), name='person_add'),
 ]

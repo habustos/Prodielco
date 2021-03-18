@@ -1,8 +1,8 @@
 import pandas as pd
-import numpy as np
+#import numpy as np
 import operator
 
-'''
+"""
 TAPnominal = int(input("Posición del TAP Nominal"))
 #TAPnominal = 4
 Voltio_TAP_nominal = 11400
@@ -78,7 +78,9 @@ class VariacionTAPnominal():
         print(V_TAP_3)
         print(V_TAP_4)
         print(V_TAP_5)
-'''
+
+
+"""
 class Resistencia_aislamiento():
 
     ejecucion = ["INICIAL", "FINAL", "INICIAL", "FINAL", "INICIAL", "FINAL"]
@@ -145,23 +147,21 @@ class Resistencia_aislamiento():
     df_V_Correg_20_mohms = operator.pow(a,b) * df_V_Correg_20_mohms
     df_V_Correg_20_mohms = round(df_V_Correg_20_mohms)
     df_i_absorcion = df_V_Correg_20_mohms['minuto_1']/df_V_Correg_20_mohms['segundo_30']
-    df_i_absorcion = round(df_i_absorcion,1)
+    df_i_absorcion= round(df_i_absorcion,1)
     df_i_polaridad = df_V_Correg_20_mohms['minuto_10']/df_V_Correg_20_mohms['minuto_1']
     df_i_polaridad = round(df_i_polaridad,1)
-    print(df_i_absorcion)
-    print(df_i_polaridad)
     df_V_Correg_20_mohms["categoria_prueba_id"] = 1
     df_V_Correg_20_mohms["tipo_prueba_id"] = 2
     df_AT_BT_T = pd.DataFrame(df_V_temp_mohms,columns=['AT_BT_T'])
-    df_V_Correg_20_mohms = pd.concat([df_AT_BT_T,df_V_Correg_20_mohms], axis=1)
+    df_V_Correg_20_mohms = pd.concat([df_AT_BT_T,df_V_Correg_20_mohms,df_i_absorcion,df_i_polaridad], axis=1)
     Resistencia_aislamiento = pd.concat([df_V_temp_mohms,df_V_Correg_20_mohms],axis=0)
+    print(Resistencia_aislamiento)
+    Resistencia_aislamiento.columns=['ejecucion',
+                                    'AT_BT_T','segundo_15','segundo_30','minuto_1','minuto_2',
+                                    'minuto_3','minuto_4','minuto_5','minuto_6','minuto_7','minuto_8',
+                                    'minuto_9','minuto_10','categoria_prueba_id','tipo_prueba_id',
+                                    'indice_absorcion','indice_polaridad'
+                                     ]
     Resistencia_aislamiento = Resistencia_aislamiento.to_csv('df_V_Correg_20_mohms.csv')
-    #print(df_V_Correg_20_mohms)
 
-"""    results = (
-
-        np.sqrt(0.5**(20-15.3))#)/10)*segundo_15)
-        #np.sqrt((0.5 ** ((20-temperatura) / 10))*segundo_15)
-    )
-"""
 

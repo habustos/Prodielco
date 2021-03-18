@@ -78,7 +78,7 @@ class Responsable(models.Model):
 
 class Categoria_Pruebas(models.Model):
     categoria = models.CharField(max_length=500)
-    
+
     def __str__(self):
         return self.categoria
 
@@ -86,7 +86,7 @@ class Categoria_Pruebas(models.Model):
 class Tipo_Pruebas(models.Model):
     prueba = models.CharField(max_length=500)
     categoria = models.ForeignKey(Categoria_Pruebas, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.prueba
 
@@ -131,31 +131,48 @@ class Transformador(models.Model):
     fecha_fabricacion = models.DateField()
     peso_kg = models.FloatField()
     litros_l = models.FloatField()
-    trension_at = models.IntegerField()
-    trension_bt = models.IntegerField()
+    tension_at = models.IntegerField()
+    tension_bt = models.IntegerField()
     potencia_kVA = models.IntegerField()
-    temperatura = models.CharField(max_length=100)
+    temperatura = models.FloatField()
     humedad = models.IntegerField()
-    factor_correccion_k = models.IntegerField()
+    factor_correccion_k = models.FloatField()
     medidor_De_Aislamiento = models.CharField(max_length=100)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    responsable = models.ForeignKey(Responsable, on_delete=models.CASCADE)
+    responsable = ChainedForeignKey(
+        Responsable,
+        chained_field="cliente",
+        chained_model_field="cliente",
+        show_all=False,
+        auto_choose=True
+    )
     clase_transformador = models.ForeignKey(Clase_Transformador, on_delete=models.CASCADE)
     fabricante = models.ForeignKey(Fabricante, on_delete=models.CASCADE)
     nomenclatura = models.ForeignKey(Nomenclatura, on_delete=models.CASCADE)
     tap_nominal = models.ForeignKey(Tap_Nominal, on_delete=models.CASCADE)
     grupo_de_conexion = models.ForeignKey(Grupo_Conexion, on_delete=models.CASCADE)
     departamento = models.ForeignKey(Depto, on_delete=models.CASCADE)
-    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE)
+    municipio = ChainedForeignKey(
+        Municipio,
+        chained_field="departamento",
+        chained_model_field="departamento",
+        show_all=False,
+        auto_choose=True
+    )
     barrio = models.CharField(max_length=100)
     direccion = models.CharField(max_length=500)
-    
+
     def __str__(self):
         return self.serial
 
     @property
     def factor_correccion(self):
-        return (0.5 ** 20 - self.factor_correccion_k / 10)
+        a, b = (0.5, (20 - self.temperatura) / 10)
+        factor_correccion_k = operator.pow(a, b)
+        return (factor_correccion_k)
+
+    def factor_correccion(self):
+        return self.cantidad * self.valor_unitario
 
     def save(self):
         self.factor_correccion_k = self.factor_correccion
@@ -202,16 +219,6 @@ class TTR(models.Model):
     p_final_2 = models.FloatField()
     p_inicial_3 = models.FloatField()
     p_final_3 = models.FloatField()
-
-
-
-
-
-
-
-
-
-
 
     """    
     conexion_TTR_3_1 = models.CharField(max_length=100)

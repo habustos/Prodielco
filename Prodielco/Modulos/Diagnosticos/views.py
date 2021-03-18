@@ -9,7 +9,12 @@ from .models import *
 class add_buyer(CreateView):
     model = Cliente
     form_class = Cliente_form
-    success_url = reverse_lazy('person_changelist')
+    success_url = reverse_lazy('home')
+
+class Transformador_form(CreateView):
+    model = Transformador
+    form_class = Transformador_form
+    success_url = reverse_lazy('home')
 
 
 """

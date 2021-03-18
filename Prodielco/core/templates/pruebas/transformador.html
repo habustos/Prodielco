@@ -1,0 +1,20 @@
+<div class="fair-container container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3> Ingrese la información del transformador</h3>
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.media.js }}
+						{{ form.as_p }}
+                                <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/smart-selects/admin/js/chainedfk.js"></script>
+<script src="/static/smart-selects/admin/js/bindfields.js"></script>
