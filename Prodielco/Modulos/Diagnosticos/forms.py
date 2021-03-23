@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import CheckboxSelectMultiple
 from .models import *
 
 
@@ -12,6 +13,7 @@ class Transformador_form(forms.ModelForm):
     class Meta:
         model = Transformador
         fields = ('__all__')
+        exclude = ('factor_correccion_k',)
         labels = {'tipo_transformador': 'Tipo Transformador',
                   'serial': 'Serial',
                   'referencia': 'Referencia',
@@ -42,7 +44,42 @@ class Transformador_form(forms.ModelForm):
             # 'ciudad': forms.TextInput(attrs={'class':'dropdown-item'}),
         }
 
+
+class R_aisl(forms.ModelForm):
+    class Meta:
+        model = Resistencia_aislamiento
+        fields = ('__all__')
+        exclude = ('prueba','categoria_prueba','tipo_prueba')
+
+
+class Corr_20_ohm(forms.ModelForm):
+    class Meta:
+        model = Resistencia_aislamiento
+        fields = ('__all__')
+        exclude = ('prueba','categoria_prueba','tipo_prueba','cliente','transformador')
+
 """
+class R_aisl_form(forms.ModelForm):
+    class Meta:
+        model = Resistencia_aislamiento
+        EJECUCION = [('1', 'INICIAL'), ('2', 'FINAL')] #cambiar nombre ejecucion por prueba
+        fields = ('__all__')
+        prueba = forms.MultipleChoiceField(
+            required=False,
+            widget=forms.CheckboxSelectMultiple,
+            choices=EJECUCION,
+        )
+        widgets = {
+            #(attrs={'class':'dropdown-item'})
+            # 'fecha_nacimiento': forms.DateInput(format=('%d-%m-%Y'), attrs={'type': 'date'}),
+            # 'depto': forms.TextInput(attrs={'class':'dropdown-item'}),
+            # 'ciudad': forms.TextInput(attrs={'class':'dropdown-item'}),
+        }
+
+"""
+"""
+
+class="mdb-select md-form" searchable="Search here.."
 tipo_transformador = [
             ('seco', 'SECO'),
             ('lubricado', 'SUMERGIDO EN ACEITE'),

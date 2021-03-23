@@ -1,5 +1,6 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey
+import operator
 
 
 class Depto(models.Model):
@@ -11,7 +12,7 @@ class Depto(models.Model):
 
 class Municipio(models.Model):
     municipio = models.CharField(max_length=30)
-    depto = models.ForeignKey(Depto, on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Depto, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.municipio
@@ -57,6 +58,7 @@ class Cliente(models.Model):
 
 
 class Responsable(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nombres = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=50)
     telefono = models.CharField(max_length=100)
@@ -136,7 +138,7 @@ class Transformador(models.Model):
     potencia_kVA = models.IntegerField()
     temperatura = models.FloatField()
     humedad = models.IntegerField()
-    factor_correccion_k = models.FloatField()
+    factor_correccion_k = models.FloatField(blank=True, null=True)
     medidor_De_Aislamiento = models.CharField(max_length=100)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     responsable = ChainedForeignKey(
@@ -165,22 +167,16 @@ class Transformador(models.Model):
     def __str__(self):
         return self.serial
 
-    @property
-    def factor_correccion(self):
+    def save(self, *args, **kwargs):
         a, b = (0.5, (20 - self.temperatura) / 10)
         factor_correccion_k = operator.pow(a, b)
-        return (factor_correccion_k)
-
-    def factor_correccion(self):
-        return self.cantidad * self.valor_unitario
-
-    def save(self):
-        self.factor_correccion_k = self.factor_correccion
-        super(Transformador, self).save()
+        factor_correccion_k = round(factor_correccion_k,3)
+        self.factor_correccion_k = factor_correccion_k
+        super(Transformador, self).save(*args, **kwargs)
 
 
 class Resistencia_aislamiento(models.Model):
-    EJECUCION = models.CharField(max_length=10)
+    prueba = models.CharField(max_length=6)
     AT_BT_T = models.CharField(max_length=10)
     segundo_15 = models.IntegerField()
     segundo_30 = models.IntegerField()
@@ -198,7 +194,25 @@ class Resistencia_aislamiento(models.Model):
     indice_polaridad = models.FloatField()
     categoria_prueba = models.ForeignKey(Categoria_Pruebas, on_delete=models.CASCADE)
     tipo_prueba = models.ForeignKey(Tipo_Pruebas, on_delete=models.CASCADE)
-    Transformador = models.ForeignKey(Transformador, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    transformador = ChainedForeignKey(
+        Transformador,
+        chained_field="cliente",
+        chained_model_field="cliente",
+        show_all=False,
+        auto_choose=True
+    )
+    def __str__(self):
+        return self.transformador
+
+
+"""    def save(self, *args, **kwargs):
+        a, b = (0.5, (20 - self.temperatura) / 10)
+        factor_correccion_k = operator.pow(a, b)
+        factor_correccion_k = round(factor_correccion_k,3)
+        self.factor_correccion_k = factor_correccion_k
+        super(Resistencia_aislamiento, self).save(*args, **kwargs)
+"""
 
 
 class TTR(models.Model):
@@ -219,6 +233,10 @@ class TTR(models.Model):
     p_final_2 = models.FloatField()
     p_inicial_3 = models.FloatField()
     p_final_3 = models.FloatField()
+
+
+
+
 
     """    
     conexion_TTR_3_1 = models.CharField(max_length=100)
