@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Ventas {% endblock %}
+{% block title %} R aislamiento {% endblock %}
 {% block stylesheets %}
 {% endblock stylesheets %}
 
@@ -20,7 +20,7 @@
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="#!">Diagnósticos</a></li>
-                                <li class="breadcrumb-item"><a href="#!">Ventas</a></li>
+                                <li class="breadcrumb-item"><a href="#!">Resistencia de aislamientos</a></li>
                             </ul>
                         </div>
                     </div>
@@ -31,17 +31,436 @@
                 <!-- [ form-element ] start -->
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-header">
                             <h5>Resistencia de aislamiento</h5>
+                            <br>
+                            <h5>Prueba Inicial</h5>
+                            <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="customControlValidation1" required onclick="Mostrar()">
+                                    <label class="custom-control-label" for="customControlValidation1">Ocultar</label>
+                                </div>
+                        </div>
+                        <div class="card-body">
                             <hr>
                             <div class="row">
                                 <div class="col-lg-12">
-<form method="post" enctype="multipart/form-data" >
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ R_aisl_form.as_p }}
-    {{ Corr_20_ohm_form.as_p }}
-    <button type="submit" class="btn btn-success">Guardar</button>
+    {{ form.media.js }}
+    {{form}}
+        <div class="row">
+        <div class="col-md-3 mb-3">
+        <h5 class="mt-5" >Temperatura</h5>
+        <input type="number" step="any" class="form-control" value="0" name="temperatura">
+    </div>
+
+</div>
+
+<div class="form-row" id="Inicial">
+        <h5 class="mt-5" >15 Segundos</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_S_15">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_S_15">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_S_15">
+    </div>
+
+</div>
+            <h5>30 Segundos</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_S_30">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_S_30">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_S_30">
+    </div>
+
+</div>
+            <h5>Minuto 1</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_1">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_1">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_1">
+    </div>
+
+</div>
+            <h5>Minuto 2</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_2">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_2">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_2">
+    </div>
+
+</div>
+            <h5>Minuto 3</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_3">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_3">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_3">
+    </div>
+
+</div>
+            <h5>Minuto 4</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_4">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_4">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_4">
+    </div>
+
+</div>
+            <h5>Minuto 5</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_5">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_5">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_5">
+    </div>
+
+</div>
+            <h5>Minuto 6</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_6">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_6">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_6">
+    </div>
+
+</div>
+            <h5>Minuto 7</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_7">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_7">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_7">
+    </div>
+
+</div>
+            <h5>Minuto 8</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_8">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_8">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_8">
+    </div>
+
+</div>
+            <h5>Minuto 9</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_9">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_9">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_9">
+    </div>
+
+</div>
+            <h5>Minuto 10</h5>
+    <div class="row">
+    <!--Es necesario ID del DIV para ocultar el contenido-->
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_I_M_10">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_I_M_10">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_I_M_10">
+    </div>
+
+</div>
+    </div>
+    <h5>Prueba Final</h5>
+    <div class="form-row">
+        <h5 class="mt-5" >15 Segundos</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_S_15">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_S_15">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_S_15">
+    </div>
+
+</div>
+            <h5>30 Segundos</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_S_30">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_S_30">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_S_30">
+    </div>
+
+</div>
+            <h5>Minuto 1</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_1">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_1">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_1">
+    </div>
+
+</div>
+            <h5>Minuto 2</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_2">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_2">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_2">
+    </div>
+
+</div>
+            <h5>Minuto 3</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_3">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_3">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_3">
+    </div>
+
+</div>
+            <h5>Minuto 4</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_4">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_4">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_4">
+    </div>
+
+</div>
+            <h5>Minuto 5</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_5">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_5">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_5">
+    </div>
+
+</div>
+            <h5>Minuto 6</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_6">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_6">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_6">
+    </div>
+
+</div>
+            <h5>Minuto 7</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_7">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_7">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_7">
+    </div>
+
+</div>
+            <h5>Minuto 8</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_8">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_8">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_8">
+    </div>
+
+</div>
+            <h5>Minuto 9</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_9">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_9">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_9">
+    </div>
+
+</div>
+            <h5>Minuto 10</h5>
+    <div class="row">
+    <div class="col-md-3 mb-3">
+        <span>AT-BT</span>
+        <input type="number" class="form-control" value="0" name="AT_BT_F_M_10">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>AT-T</span>
+        <input type="number" class="form-control" value="0" name="AT_T_F_M_10">
+    </div>
+        <div class="col-md-3 mb-3">
+        <span>BT-T</span>
+        <input type="number" class="form-control" value="0" name="BT_T_F_M_10">
+    </div>
+
+</div>
+    </div>
+
+
+<button type="submit" class="btn btn-success">Guardar</button>
 </form>
+
 
                                 </div>
                             </div>
@@ -73,4 +492,14 @@
 {% block javascripts %}
 <script src="/static/smart-selects/admin/js/chainedfk.js"></script>
 <script src="/static/smart-selects/admin/js/bindfields.js"></script>
+<script>
+function Mostrar() {
+  var x = document.getElementById("Inicial");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
 {% endblock javascripts %}

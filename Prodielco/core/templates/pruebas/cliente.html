@@ -1,3 +1,11 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} R aislamiento {% endblock %}
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+
+{% block content %}
 <div class="fair-container container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-7">
@@ -7,7 +15,7 @@
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.media.js }}
-						{{ form.as_p }}
+						{{ form.as_table }}
                                 <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div>
@@ -15,6 +23,8 @@
         </div>
     </div>
 </div>
-
+{% endblock content %}
+{% block javascripts %}
 <script src="/static/smart-selects/admin/js/chainedfk.js"></script>
 <script src="/static/smart-selects/admin/js/bindfields.js"></script>
+{% endblock javascripts %}

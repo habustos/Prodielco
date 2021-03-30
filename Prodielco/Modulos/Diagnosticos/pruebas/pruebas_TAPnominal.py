@@ -84,7 +84,7 @@ class VariacionTAPnominal():
 class Resistencia_aislamiento():
 
     ejecucion = ["INICIAL", "FINAL", "INICIAL", "FINAL", "INICIAL", "FINAL"]
-    AT_BT_T = ["AT-BT", "AT-BT", "AT-T", "AT-T", "AT-T", "BT-T"]
+    AT_BT_T = ["AT-BT", "AT-BT", "AT-T", "AT-T", "BT-T", "BT-T"]
     segundo_15 = [0,164000,0,11700,0,67100]
     segundo_30 = [0,228000,0,12000,0,79800]
     minuto_1 = [0,311000,0,12100,0,84600]

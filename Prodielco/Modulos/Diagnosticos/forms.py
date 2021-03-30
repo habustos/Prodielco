@@ -1,5 +1,5 @@
 from django import forms
-from django.forms.widgets import CheckboxSelectMultiple
+from django.forms import CheckboxInput, ModelChoiceField, Select, ModelMultipleChoiceField, SelectMultiple
 from .models import *
 
 
@@ -44,21 +44,25 @@ class Transformador_form(forms.ModelForm):
             # 'ciudad': forms.TextInput(attrs={'class':'dropdown-item'}),
         }
 
-
 class R_aisl(forms.ModelForm):
     class Meta:
         model = Resistencia_aislamiento
-        fields = ('__all__')
-        exclude = ('prueba','categoria_prueba','tipo_prueba')
-
+        fields = ('cliente','transformador')
 
 class Corr_20_ohm(forms.ModelForm):
     class Meta:
         model = Resistencia_aislamiento
         fields = ('__all__')
-        exclude = ('prueba','categoria_prueba','tipo_prueba','cliente','transformador')
+        exclude = ('prueba','categoria_prueba','tipo_prueba','cliente','transformador','AT_BT_T')
 
 """
+class R_aisl(forms.ModelForm):
+    class Meta:
+        model = Resistencia_aislamiento
+        fields = ('__all__')
+        exclude = ('prueba','categoria_prueba','tipo_prueba','AT_BT_T')
+
+
 class R_aisl_form(forms.ModelForm):
     class Meta:
         model = Resistencia_aislamiento
